@@ -1,0 +1,22 @@
+# Credential dan config rahasia
+.env
+*.env
+.env.*
+# Git
+.git
+.gitignore
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+# IDE
+.vscode/
+.idea/
+# File test
+tests/
+*.test.py
+# Dokumentasi
+docs/
+README.md
+Dockerfile*

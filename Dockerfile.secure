@@ -1,0 +1,17 @@
+# STAGE 1: Build stage - instal dependency
+FROM python:3.12-alpine AS builder
+WORKDIR /build
+COPY requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+# STAGE 2: Runtime stage - image final minimal
+FROM python:3.12-alpine AS runtime
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -u 1001 -S appuser -G appgroup
+WORKDIR /app
+COPY --from=builder /root/.local /home/appuser/.local
+COPY --chown=appuser:appgroup app.py .
+USER appuser
+EXPOSE 8080
+ENTRYPOINT ["python3"]
+CMD ["app.py"]
